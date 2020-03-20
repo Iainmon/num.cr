@@ -1,0 +1,126 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tensors &#8212; Num.cr 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Indexing" href="tensors.indexing.html" />
+    <link rel="prev" title="Num.cr Documentation Version 0.1.0" href="index.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="tensors.indexing.html" title="Indexing"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Num.cr Documentation Version 0.1.0"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">Num.cr 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Num.cr Documentation Version 0.1.0</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Num.cr Documentation Version 0.1.0</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tensors.indexing.html"
+                        title="next chapter">Indexing</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/reference/tensors.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="tensors">
+<h1>Tensors<a class="headerlink" href="#tensors" title="Permalink to this headline">¶</a></h1>
+<p>Num.cr provides an n-dimensional Tensor, which stores numeric data of a
+homogenous type.  These tensors can be <span class="xref std std-ref">indexed</span> using
+a variety of indexing operations.</p>
+<p>All Tensors contain a single data type, union types are disallowed in order
+to maximize performance and clarity.  Tensors in particular only can store
+boolean or numeric data, but BaseArray’s can be subclassed in order to use
+convenient n-dimensional storage for other types.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tensors.indexing.html">Indexing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tensors.indexing.html#slicing-an-axis">Slicing an axis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensors.indexing.html#viewing-an-entry-along-an-axis">Viewing an entry along an axis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensors.indexing.html#viewing-vs-slicing">Viewing vs. Slicing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensors.indexing.html#accessing-a-scalar">Accessing a Scalar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensors.indexing.html#strided-indexing">Strided indexing</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="tensors.indexing.html" title="Indexing"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Num.cr Documentation Version 0.1.0"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">Num.cr 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Num.cr Documentation Version 0.1.0</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Chris Zimmerman.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
+    </div>
+  </body>
+</html>

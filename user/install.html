@@ -1,0 +1,126 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Installing Num.cr &#8212; Num.cr 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Quickstart tutorial" href="quickstart.html" />
+    <link rel="prev" title="What is Num.cr?" href="whatisnumcr.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="quickstart.html" title="Quickstart tutorial"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="whatisnumcr.html" title="What is Num.cr?"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">Num.cr 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Num.cr User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="setting-up.html" accesskey="U">Setting up</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="whatisnumcr.html"
+                        title="previous chapter">What is Num.cr?</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="quickstart.html"
+                        title="next chapter">Quickstart tutorial</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/user/install.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="installing-num-cr">
+<h1>Installing Num.cr<a class="headerlink" href="#installing-num-cr" title="Permalink to this headline">¶</a></h1>
+<p>Num.cr can be included in your project by adding the repository to your
+<cite>shard.yml</cite> file.</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="ss">development_dependencies</span><span class="p">:</span>
+  <span class="ss">num</span><span class="p">:</span>
+    <span class="ss">github</span><span class="p">:</span> <span class="n">crystal</span><span class="o">-</span><span class="n">data</span><span class="o">/</span><span class="n">num</span><span class="o">.</span><span class="n">cr</span>
+</pre></div>
+</div>
+<p>Num.cr relies on several C libraries to provide fast Linear Algebra and FFT
+routines.  These are: BLAS, LAPACK, and FFTW.  These libraries are not required
+to use basic Tensor operations, but are needed to use linear algebra routines
+or fourier transform routines.</p>
+<p>Num.cr also supports several BLAS implementations in order to provide the best
+performance on a range of operating systems.  On Darwin, use the <cite>-Daccelerate</cite>
+compilation flag to use Darwin’s accelerate framework.  You can also use
+OpenBlas or Cblas using the <cite>-Dopenblas</cite> or <cite>-Dcblas</cite> flags.</p>
+<p>Please review your operating systems installation guides on how to install
+your BLAS, LAPACK, and FFTW implementations.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="quickstart.html" title="Quickstart tutorial"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="whatisnumcr.html" title="What is Num.cr?"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">Num.cr 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Num.cr User Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="setting-up.html" >Setting up</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Chris Zimmerman.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
+    </div>
+  </body>
+</html>

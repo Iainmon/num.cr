@@ -1,0 +1,551 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Quickstart tutorial &#8212; Num.cr 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Num.cr Documentation Version 0.1.0" href="../reference/index.html" />
+    <link rel="prev" title="Installing Num.cr" href="install.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../reference/index.html" title="Num.cr Documentation Version 0.1.0"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="install.html" title="Installing Num.cr"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">Num.cr 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Num.cr User Guide</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Quickstart tutorial</a><ul>
+<li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li><a class="reference internal" href="#the-basics">The Basics</a><ul>
+<li><a class="reference internal" href="#an-example">An example</a></li>
+<li><a class="reference internal" href="#tensor-creation">Tensor Creation</a></li>
+<li><a class="reference internal" href="#basic-operations">Basic Operations</a></li>
+<li><a class="reference internal" href="#universal-functions">Universal Functions</a></li>
+<li><a class="reference internal" href="#indexing-slicing-and-iterating">Indexing, Slicing and Iterating</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#shape-manipulation">Shape Manipulation</a><ul>
+<li><a class="reference internal" href="#changing-the-shape-of-a-tensor">Changing the shape of a tensor</a></li>
+<li><a class="reference internal" href="#stacking-together-different-tensors">Stacking together different tensors</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#copies-and-views">Copies and Views</a><ul>
+<li><a class="reference internal" href="#no-copy-at-all">No copy at all</a></li>
+<li><a class="reference internal" href="#view-or-shallow-copy">View or Shallow Copy</a></li>
+<li><a class="reference internal" href="#deep-copies">Deep copies</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="install.html"
+                        title="previous chapter">Installing Num.cr</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../reference/index.html"
+                        title="next chapter">Num.cr Documentation Version 0.1.0</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/user/quickstart.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="quickstart-tutorial">
+<h1>Quickstart tutorial<a class="headerlink" href="#quickstart-tutorial" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<p>Before reading this tutorial you should know Crystal Lang. If you
+would like to refresh your memory, take a look at the <a class="reference external" href="https://crystal-lang.org/reference/">Crystal
+introduction</a>.</p>
+</div>
+<div class="section" id="the-basics">
+<h2>The Basics<a class="headerlink" href="#the-basics" title="Permalink to this headline">¶</a></h2>
+<p>Num.cr’s main object is the homogeneous multidimensional tensor. It is a
+table of elements (usually numbers), all of the same type, indexed by
+integers. In Num.cr dimensions are called <em>axes</em>.</p>
+<p>For example, the coordinates of a point in 3D space <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">1]</span></code> has
+one axis. That axis has 3 elements in it, so we say it has a length
+of 3. In the example pictured below, the tensor has 2 axes. The first
+axis has a length of 2, the second axis has a length of 3.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">([[</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+        <span class="p">[</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p>Num.cr’s tensor class is called <code class="docutils literal notranslate"><span class="pre">Tensor</span></code>. The more important attributes of
+a <code class="docutils literal notranslate"><span class="pre">tensor</span></code> object are:</p>
+<dl class="simple">
+<dt>Tensor.ndims</dt><dd><p>the number of axes (dimensions) of the tensor.</p>
+</dd>
+<dt>Tensor.shape</dt><dd><p>the dimensions of the tensor. This is an Array of integers indicating
+the size of the tensor in each dimension. For a matrix with <em>n</em> rows
+and <em>m</em> columns, <code class="docutils literal notranslate"><span class="pre">shape</span></code> will be <code class="docutils literal notranslate"><span class="pre">[n,</span> <span class="pre">m]</span></code>. The length of the
+<code class="docutils literal notranslate"><span class="pre">shape</span></code> Array is therefore the number of axes, <code class="docutils literal notranslate"><span class="pre">ndims</span></code>.</p>
+</dd>
+<dt>Tensor.size</dt><dd><p>the total number of elements of the tensor. This is equal to the
+product of the elements of <code class="docutils literal notranslate"><span class="pre">shape</span></code>.</p>
+</dd>
+<dt>Tensor.buffer</dt><dd><p>the buffer containing the actual elements of the array. Normally, we
+won’t need to use this attribute because we will access the elements
+in an array using indexing facilities.</p>
+</dd>
+</dl>
+<div class="section" id="an-example">
+<h3>An example<a class="headerlink" href="#an-example" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">Num</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span><span class="p">)</span>
+
+<span class="nb">puts</span> <span class="n">t</span>
+<span class="nb">puts</span> <span class="n">t</span><span class="o">.</span><span class="n">shape</span>
+<span class="nb">puts</span> <span class="n">t</span><span class="o">.</span><span class="n">ndims</span>
+<span class="nb">puts</span> <span class="n">t</span><span class="o">.</span><span class="n">size</span>
+<span class="nb">puts</span> <span class="k">typeof</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="n">from_array</span> <span class="o">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="o">]</span>
+
+<span class="nb">puts</span> <span class="n">b</span>
+<span class="nb">puts</span> <span class="k">typeof</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">(</span><span class="o">[[</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span>  <span class="mi">4</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span> <span class="mi">5</span><span class="p">,</span>  <span class="mi">6</span><span class="p">,</span>  <span class="mi">7</span><span class="p">,</span>  <span class="mi">8</span><span class="p">,</span>  <span class="mi">9</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="o">]]</span><span class="p">)</span>
+<span class="o">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span>
+<span class="mi">2</span>
+<span class="mi">15</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="nb">Int32</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="o">]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="nb">Int32</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tensor-creation">
+<h3>Tensor Creation<a class="headerlink" href="#tensor-creation" title="Permalink to this headline">¶</a></h3>
+<p>There are many ways to create Tensors.</p>
+<p>Tensors can be created from standard Crystal arrays, using the class method:
+<code class="docutils literal notranslate"><span class="pre">from_array</span></code>.</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="n">from_array</span> <span class="o">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="o">]]</span>
+<span class="nb">puts</span> <span class="n">t</span>
+</pre></div>
+</div>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">(</span><span class="o">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="o">]]</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Tensors can also be created from blocks, allowing convenient construction of
+complex shapes.</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="o">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span><span class="o">**</span><span class="mi">2</span> <span class="p">}</span>
+<span class="nb">puts</span> <span class="n">t</span>
+</pre></div>
+</div>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">(</span><span class="o">[[[</span>  <span class="mi">0</span><span class="p">,</span>   <span class="mi">1</span><span class="o">]</span><span class="p">,</span>
+         <span class="o">[</span>  <span class="mi">4</span><span class="p">,</span>   <span class="mi">9</span><span class="o">]]</span><span class="p">,</span>
+
+        <span class="o">[[</span> <span class="mi">16</span><span class="p">,</span>  <span class="mi">25</span><span class="o">]</span><span class="p">,</span>
+         <span class="o">[</span> <span class="mi">36</span><span class="p">,</span>  <span class="mi">49</span><span class="o">]]</span><span class="p">,</span>
+
+        <span class="o">[[</span> <span class="mi">64</span><span class="p">,</span>  <span class="mi">81</span><span class="o">]</span><span class="p">,</span>
+         <span class="o">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">121</span><span class="o">]]]</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Often, the elements of an tensor are originally unknown, but its size of known.  Hence,
+Num.cr offers many routines to create tensors with initial placeholder data.  These
+minimize the number of tensors that need to grow to fit data, which is an
+expensive operation.</p>
+<p>The routine <code class="docutils literal notranslate"><span class="pre">zeros</span></code> creates a tensor full of zeros.  The routine <code class="docutils literal notranslate"><span class="pre">ones</span></code> creates
+a tensor full of ones, and the function <code class="docutils literal notranslate"><span class="pre">empty</span></code> creates an array with an empty
+allocated data buffer.</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="nb">puts</span> <span class="n">Num</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="o">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="o">]</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="n">Num</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="o">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="o">]</span><span class="p">,</span> <span class="ss">dtype</span><span class="p">:</span> <span class="nb">UInt8</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="n">Num</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="o">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">(</span><span class="o">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="o">]]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">]</span><span class="p">,</span>
+         <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">]</span><span class="p">,</span>
+         <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">]]</span><span class="p">,</span>
+
+        <span class="o">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">]</span><span class="p">,</span>
+         <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">]</span><span class="p">,</span>
+         <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">]]]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="o">]]</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To create sequences of numbers, Num.cr provides functions similar to ranges that return
+tensors instead of iterators.</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="nb">puts</span> <span class="n">Num</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="n">Num</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="ss">dtype</span><span class="p">:</span> <span class="nb">Float64</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">(</span><span class="o">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="o">]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.8</span><span class="o">]</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When <code class="docutils literal notranslate"><span class="pre">arange</span></code> is used with floating point arguments, it is generally not possible to predict
+the number of elements created, due to floating point precision issues.  It is usually better
+to use the <code class="docutils literal notranslate"><span class="pre">linspace</span></code> routine that receives as an argument the number of desired elements, instead of a
+step.</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="nb">puts</span> <span class="n">Num</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">(</span><span class="o">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.25</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">,</span> <span class="mf">2.0</span><span class="o">]</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="basic-operations">
+<h3>Basic Operations<a class="headerlink" href="#basic-operations" title="Permalink to this headline">¶</a></h3>
+<p>Arithmetic operations on tensors apply <em>elementwise</em>.  A new tensor is created and filled
+with the result.</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="n">from_array</span> <span class="o">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="o">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">Num</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="n">b</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span>
+<span class="nb">puts</span> <span class="n">c</span>
+<span class="nb">puts</span> <span class="n">b</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="nb">puts</span> <span class="n">Num</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span>
+<span class="nb">puts</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">35</span>
+</pre></div>
+</div>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">(</span><span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">47</span><span class="o">]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="o">]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[</span><span class="mf">9.129</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.88</span><span class="p">,</span> <span class="mf">7.451</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.624</span><span class="o">]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[</span> <span class="kc">true</span><span class="p">,</span>  <span class="kc">true</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kc">false</span><span class="o">]</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Many statistical operations, such as the sum of a tensor, or the minimum/maximum are implemented
+directly as methods on the tensor class.</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mf">0.0</span><span class="o">...</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="n">a</span>
+<span class="nb">puts</span> <span class="n">a</span><span class="o">.</span><span class="n">sum</span>
+<span class="nb">puts</span> <span class="n">a</span><span class="o">.</span><span class="n">min</span>
+<span class="nb">puts</span> <span class="n">a</span><span class="o">.</span><span class="n">max</span>
+</pre></div>
+</div>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">(</span><span class="o">[[</span><span class="mf">0.064</span><span class="p">,</span> <span class="mf">0.533</span><span class="p">,</span> <span class="mf">0.395</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mf">0.017</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.816</span><span class="o">]]</span><span class="p">)</span>
+<span class="mf">1.8505205175980595</span>
+<span class="mf">0.017296349857875204</span>
+<span class="mf">0.816088601545241</span>
+</pre></div>
+</div>
+<p>By default, these operations treat the tensor as though it was a flattened version
+of itself, returning a reduction on the entire tensor.  However, by specifying
+and <code class="docutils literal notranslate"><span class="pre">axis</span></code> parameter, you can apply an operation along a specified access of a tensor.</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">Num</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="o">]</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="n">b</span>
+
+<span class="nb">puts</span> <span class="n">b</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="ss">axis</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="n">b</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="ss">axis</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="n">b</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="ss">axis</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">(</span><span class="o">[[</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span>  <span class="mi">3</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span> <span class="mi">4</span><span class="p">,</span>  <span class="mi">5</span><span class="p">,</span>  <span class="mi">6</span><span class="p">,</span>  <span class="mi">7</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span> <span class="mi">8</span><span class="p">,</span>  <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="o">]]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">21</span><span class="o">]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="o">]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[[</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span>  <span class="mi">6</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span> <span class="mi">4</span><span class="p">,</span>  <span class="mi">9</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">22</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">38</span><span class="o">]]</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="universal-functions">
+<h3>Universal Functions<a class="headerlink" href="#universal-functions" title="Permalink to this headline">¶</a></h3>
+<p>Num.cr provides familiar mathematical functions such as sin, cos, and exp.  These functions
+operate elementwise on tensors, producing tensors as output.</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">Num</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="n">t</span>
+
+<span class="nb">puts</span> <span class="n">Num</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="n">Num</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="n">from_array</span> <span class="o">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="o">]</span>
+
+<span class="nb">puts</span> <span class="n">Num</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">(</span><span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[</span>  <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.718</span><span class="p">,</span> <span class="mf">7.389</span><span class="o">]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[</span>  <span class="mf">0.0</span><span class="p">,</span>   <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.414</span><span class="o">]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="o">]</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="indexing-slicing-and-iterating">
+<h3>Indexing, Slicing and Iterating<a class="headerlink" href="#indexing-slicing-and-iterating" title="Permalink to this headline">¶</a></h3>
+<p><strong>One-dimensional</strong> tensors can be indexed, sliced and iterated over, very similar to
+Crystal arrays.</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">Num</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">**</span> <span class="mi">3</span>
+<span class="nb">puts</span> <span class="n">a</span>
+
+<span class="nb">puts</span> <span class="n">a</span><span class="o">[[</span><span class="mi">2</span><span class="o">]]</span>
+<span class="nb">puts</span> <span class="n">a</span><span class="o">[</span><span class="mi">2</span><span class="o">...</span><span class="mi">5</span><span class="o">]</span>
+</pre></div>
+</div>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">(</span><span class="o">[</span>  <span class="mi">0</span><span class="p">,</span>   <span class="mi">1</span><span class="p">,</span>   <span class="mi">8</span><span class="p">,</span>  <span class="mi">27</span><span class="p">,</span>  <span class="mi">64</span><span class="p">,</span> <span class="mi">125</span><span class="p">,</span> <span class="mi">216</span><span class="p">,</span> <span class="mi">343</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">729</span><span class="o">]</span><span class="p">)</span>
+<span class="mi">8</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">64</span><span class="o">]</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>N-Dimensional</strong> tensors can have a single index operation per axis. These indices are provided
+as <cite>*args</cite>.</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="o">|</span>
+  <span class="mi">10</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="n">j</span>
+<span class="k">end</span>
+<span class="nb">puts</span> <span class="n">a</span>
+
+<span class="nb">puts</span> <span class="n">a</span><span class="o">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">].</span><span class="n">value</span>
+<span class="nb">puts</span> <span class="n">a</span><span class="o">[...</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="o">]</span>
+<span class="nb">puts</span> <span class="n">a</span><span class="o">[...</span><span class="p">,</span> <span class="mi">1</span><span class="o">]</span>
+<span class="nb">puts</span> <span class="n">a</span><span class="o">[</span><span class="mi">1</span><span class="o">...</span><span class="mi">3</span><span class="p">,</span> <span class="o">...]</span>
+</pre></div>
+</div>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">(</span><span class="o">[[</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span>  <span class="mi">3</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">33</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">43</span><span class="o">]]</span><span class="p">)</span>
+<span class="mi">23</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">41</span><span class="o">]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">41</span><span class="o">]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="o">]]</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="shape-manipulation">
+<h2>Shape Manipulation<a class="headerlink" href="#shape-manipulation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="changing-the-shape-of-a-tensor">
+<h3>Changing the shape of a tensor<a class="headerlink" href="#changing-the-shape-of-a-tensor" title="Permalink to this headline">¶</a></h3>
+<p>Tensors have shapes defined by the number of elements along each axis.</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">0</span><span class="o">...</span><span class="mi">10</span><span class="p">,</span> <span class="o">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="o">]</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="n">a</span>
+<span class="nb">puts</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">(</span><span class="o">[[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="o">]]</span><span class="p">)</span>
+<span class="o">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="o">]</span>
+</pre></div>
+</div>
+<p>The shape of a atensor can be changed with many routines.  Many methods return
+a view of the original data, but do not change the origin tensor.</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="nb">puts</span> <span class="n">a</span><span class="o">.</span><span class="n">ravel</span>
+<span class="nb">puts</span> <span class="n">a</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="n">a</span><span class="o">.</span><span class="n">transpose</span>
+<span class="nb">puts</span> <span class="n">a</span><span class="o">.</span><span class="n">transpose</span><span class="o">.</span><span class="n">shape</span>
+<span class="nb">puts</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">(</span><span class="o">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="o">]]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="o">]]</span><span class="p">)</span>
+<span class="o">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span>
+<span class="o">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="o">]</span>
+</pre></div>
+</div>
+<p>If a dimension is provided as -1 in an operation that reshapes the tensor, the other dimensions
+are calculated automatically.  Only a single dimension can be dynamically calculated.</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="nb">puts</span> <span class="n">a</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">(</span><span class="o">[[[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="o">]</span><span class="p">,</span>
+         <span class="o">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="o">]]</span><span class="p">,</span>
+
+        <span class="o">[[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span><span class="p">,</span>
+         <span class="o">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="o">]]</span><span class="p">,</span>
+
+        <span class="o">[[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="o">]</span><span class="p">,</span>
+         <span class="o">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="o">]]]</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="stacking-together-different-tensors">
+<h3>Stacking together different tensors<a class="headerlink" href="#stacking-together-different-tensors" title="Permalink to this headline">¶</a></h3>
+<p>Many tensors can be stacked together along an axis.  Shapes must be the same on
+the off-axis dimensions of the tensors.</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">0</span><span class="o">...</span><span class="mi">10</span><span class="p">,</span> <span class="o">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">0</span><span class="o">...</span><span class="mi">10</span><span class="p">,</span> <span class="o">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span><span class="p">)</span>
+
+<span class="nb">puts</span> <span class="n">a</span>
+<span class="nb">puts</span> <span class="n">b</span>
+
+<span class="nb">puts</span> <span class="n">Num</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="o">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">]</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="n">Num</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="o">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">]</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="n">Num</span><span class="o">.</span><span class="n">column_stack</span><span class="p">(</span><span class="o">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">]</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">(</span><span class="o">[[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="o">]]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="o">]]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="o">]]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="o">]]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="o">]]</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="copies-and-views">
+<h2>Copies and Views<a class="headerlink" href="#copies-and-views" title="Permalink to this headline">¶</a></h2>
+<p>When operating and manipulating tensors, data is sometimes copied into a new tensor, and
+sometimes a tensor shares memory with another tensor.  This can lead to confusing
+behavior if a user is not aware of this fact.</p>
+<div class="section" id="no-copy-at-all">
+<h3>No copy at all<a class="headerlink" href="#no-copy-at-all" title="Permalink to this headline">¶</a></h3>
+<p>Simple assignments make no copy of tensors or their data</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">Num</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="o">]</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span>  <span class="c1"># no copy of the tensors data is made</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="view-or-shallow-copy">
+<h3>View or Shallow Copy<a class="headerlink" href="#view-or-shallow-copy" title="Permalink to this headline">¶</a></h3>
+<p>Different tensors can share the same data, however some tensors will point to subsets
+of another tensors data, and therefore the objects will not be the same.</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">dup_view</span><span class="p">()</span>
+
+<span class="nb">puts</span> <span class="n">a</span><span class="o">.</span><span class="n">buffer</span> <span class="o">==</span> <span class="n">c</span><span class="o">.</span><span class="n">buffer</span>
+<span class="nb">puts</span> <span class="n">c</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">own_data?</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="o">]</span><span class="p">)</span>
+<span class="n">c</span><span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="o">]</span> <span class="o">=</span> <span class="mi">12345</span>
+<span class="nb">puts</span> <span class="n">a</span>
+</pre></div>
+</div>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="kc">true</span>
+<span class="kc">false</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[[</span>    <span class="mi">0</span><span class="p">,</span>     <span class="mi">1</span><span class="p">,</span>     <span class="mi">2</span><span class="p">,</span>     <span class="mi">3</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">12345</span><span class="p">,</span>     <span class="mi">5</span><span class="p">,</span>     <span class="mi">6</span><span class="p">,</span>     <span class="mi">7</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span>    <span class="mi">8</span><span class="p">,</span>     <span class="mi">9</span><span class="p">,</span>    <span class="mi">10</span><span class="p">,</span>    <span class="mi">11</span><span class="o">]]</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Slicing tensors returns a view</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">a</span><span class="o">[...</span><span class="p">,</span> <span class="mi">1</span><span class="o">...</span><span class="mi">3</span><span class="o">]</span>
+<span class="n">s</span><span class="o">[...]</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="nb">puts</span> <span class="n">a</span>
+</pre></div>
+</div>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">(</span><span class="o">[[</span>    <span class="mi">0</span><span class="p">,</span>    <span class="mi">10</span><span class="p">,</span>    <span class="mi">10</span><span class="p">,</span>     <span class="mi">3</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">12345</span><span class="p">,</span>    <span class="mi">10</span><span class="p">,</span>    <span class="mi">10</span><span class="p">,</span>     <span class="mi">7</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span>    <span class="mi">8</span><span class="p">,</span>    <span class="mi">10</span><span class="p">,</span>    <span class="mi">10</span><span class="p">,</span>    <span class="mi">11</span><span class="o">]]</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="deep-copies">
+<h3>Deep copies<a class="headerlink" href="#deep-copies" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">dup</span></code> method makes a copy of a tensor and its data</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">dup</span>
+<span class="nb">puts</span> <span class="n">d</span><span class="o">.</span><span class="n">buffer</span> <span class="o">==</span> <span class="n">a</span><span class="o">.</span><span class="n">buffer</span>
+
+<span class="n">d</span><span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="mi">9999</span>
+<span class="nb">puts</span> <span class="n">a</span>
+</pre></div>
+</div>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="kc">false</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[[</span>    <span class="mi">0</span><span class="p">,</span>    <span class="mi">10</span><span class="p">,</span>    <span class="mi">10</span><span class="p">,</span>     <span class="mi">3</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">12345</span><span class="p">,</span>    <span class="mi">10</span><span class="p">,</span>    <span class="mi">10</span><span class="p">,</span>     <span class="mi">7</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span>    <span class="mi">8</span><span class="p">,</span>    <span class="mi">10</span><span class="p">,</span>    <span class="mi">10</span><span class="p">,</span>    <span class="mi">11</span><span class="o">]]</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../reference/index.html" title="Num.cr Documentation Version 0.1.0"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="install.html" title="Installing Num.cr"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">Num.cr 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Num.cr User Guide</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Chris Zimmerman.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
+    </div>
+  </body>
+</html>

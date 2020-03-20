@@ -1,0 +1,200 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Indexing &#8212; Num.cr 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Routines" href="routines.html" />
+    <link rel="prev" title="Tensors" href="tensors.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="routines.html" title="Routines"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tensors.html" title="Tensors"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">Num.cr 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Num.cr Documentation Version 0.1.0</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="tensors.html" accesskey="U">Tensors</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Indexing</a><ul>
+<li><a class="reference internal" href="#slicing-an-axis">Slicing an axis</a></li>
+<li><a class="reference internal" href="#viewing-an-entry-along-an-axis">Viewing an entry along an axis</a></li>
+<li><a class="reference internal" href="#viewing-vs-slicing">Viewing vs. Slicing</a></li>
+<li><a class="reference internal" href="#accessing-a-scalar">Accessing a Scalar</a></li>
+<li><a class="reference internal" href="#strided-indexing">Strided indexing</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tensors.html"
+                        title="previous chapter">Tensors</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="routines.html"
+                        title="next chapter">Routines</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/reference/tensors.indexing.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="indexing">
+<h1>Indexing<a class="headerlink" href="#indexing" title="Permalink to this headline">¶</a></h1>
+<p>All indexing operations on Tensors return Tensors.  Even operations that in
+other libraries might return scalars return zero dimensional Tensors in order
+to avoid return-type ambiguity.  Indexing on Tensors also always return
+views of the underlying data buffer of a tensor.  Modifying a view will
+also modify the parent Tensor.</p>
+<div class="section" id="slicing-an-axis">
+<h2>Slicing an axis<a class="headerlink" href="#slicing-an-axis" title="Permalink to this headline">¶</a></h2>
+<p>Tensors be indexed using Crystal’s range objects to represent a slice along
+a given axis.</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="o">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span> <span class="p">}</span>
+<span class="nb">puts</span> <span class="n">t</span><span class="o">[</span><span class="mi">1</span><span class="o">...]</span>
+</pre></div>
+</div>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">(</span><span class="o">[[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="o">]]</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="viewing-an-entry-along-an-axis">
+<h2>Viewing an entry along an axis<a class="headerlink" href="#viewing-an-entry-along-an-axis" title="Permalink to this headline">¶</a></h2>
+<p>If an integer is passed to an axis instead of a range, a view of the array
+along that axis will be returned.</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="nb">puts</span> <span class="n">t</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+</pre></div>
+</div>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">(</span><span class="o">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="viewing-vs-slicing">
+<h2>Viewing vs. Slicing<a class="headerlink" href="#viewing-vs-slicing" title="Permalink to this headline">¶</a></h2>
+<p>Using a range will <em>sometimes</em> remove a dimension from the output, while using an
+integer will <em>always</em> remove a dimension from the returned tensor.  If a range
+is provided where the first and last number are the same, it will be reduced
+to an integer and the axis will be removed, otherwise the axis will remain.</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="nb">puts</span> <span class="n">t</span><span class="o">[</span><span class="mi">1</span><span class="o">...</span><span class="mi">1</span><span class="o">]</span>
+<span class="nb">puts</span> <span class="n">t</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+<span class="nb">puts</span> <span class="n">t</span><span class="o">[</span><span class="mi">1</span><span class="o">...</span><span class="mi">2</span><span class="o">]</span>
+</pre></div>
+</div>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">(</span><span class="o">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="o">]]</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="accessing-a-scalar">
+<h2>Accessing a Scalar<a class="headerlink" href="#accessing-a-scalar" title="Permalink to this headline">¶</a></h2>
+<p>Since all indexing operations return scalars, accessing a scalar is done
+through a method on a tensor called <cite>value</cite>, which returns the value of
+a tensors data buffer.</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="nb">puts</span> <span class="n">t</span><span class="o">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span>
+<span class="nb">puts</span> <span class="n">t</span><span class="o">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">].</span><span class="n">value</span>
+</pre></div>
+</div>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="mi">8</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="strided-indexing">
+<h2>Strided indexing<a class="headerlink" href="#strided-indexing" title="Permalink to this headline">¶</a></h2>
+<p>By default, the step along each axis of a Tensor is 1, but this can
+be manipulated by indexing operations.  In order to specify a step, pass
+a tuple that includes a range, and a step.</p>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="nb">puts</span> <span class="n">t</span><span class="o">[</span><span class="p">{</span><span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">}</span><span class="o">]</span>
+<span class="nb">puts</span> <span class="n">t</span><span class="o">[</span><span class="p">{</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">}</span><span class="o">]</span>
+</pre></div>
+</div>
+<div class="highlight-crystal notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">(</span><span class="o">[[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">]]</span><span class="p">)</span>
+<span class="n">Tensor</span><span class="p">(</span><span class="o">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="o">]</span><span class="p">,</span>
+        <span class="o">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="o">]]</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A single indexing operation can be provided to each axis of a Tensor, allowing
+for complex slicing and viewing of a tensor.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="routines.html" title="Routines"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tensors.html" title="Tensors"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../contents.html">Num.cr 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Num.cr Documentation Version 0.1.0</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="tensors.html" >Tensors</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Chris Zimmerman.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
+    </div>
+  </body>
+</html>
